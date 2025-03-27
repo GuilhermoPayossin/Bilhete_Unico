@@ -29,7 +29,7 @@ public class BilheteUnico {
     // método para passar na catraca
     public void passarNaCatraca() {
         double debito;
-        if(usuario.tipoTarifa.equalsIgnoreCase("tarifa")) {
+        if(usuario.tipoTarifa.equalsIgnoreCase("comum")) {
             debito = TARIFABASE;
         }
         else {

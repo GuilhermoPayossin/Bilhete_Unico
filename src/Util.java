@@ -6,7 +6,7 @@ import static java.lang.Long.parseLong;
 import static java.lang.Double.parseDouble;
 
 public class Util {
-    private BilheteUnico[] bilhetes = new BilheteUnico[5];
+    private BilheteUnico[] bilhetes = new BilheteUnico[3];
     private int index = 0;
 
     public void menuPrincipal() {
@@ -54,7 +54,7 @@ public class Util {
                         adicionarBilhete();
                         break;
                     case 2:
-                        menuUsuario();
+                        removerBilhete();
                         break;
                     case 3:
                         listarBilhetes();
@@ -140,7 +140,7 @@ public class Util {
         for (int i = 0; i < index; i++) {
             aux += "Número do bilhete: " + bilhetes[i].numero + "\n";
             aux += "Nome do usuário: " + bilhetes[i].usuario.nome + "\n";
-            aux += "Saldo: " + bilhetes[i].saldo + "\n";
+            aux += "Saldo: " + df.format(bilhetes[i].saldo) + "\n";
             aux += "Tipo de tarifa: " + bilhetes[i].usuario.tipoTarifa + "\n";
             aux += "----------------------------------------------\n";
         }
@@ -148,18 +148,14 @@ public class Util {
     }
 
     private void removerBilhete() {
-        int opcao;
-        if (index > 0) {
-            opcao = parseInt(showInputDialog("Selecione um bilhete para remover: "));
-            if (opcao > index || opcao < 0) {
-                showMessageDialog(null, "Usuário inválido");
-            } else {
-                bilhetes[opcao] = bilhetes[opcao + 1];
-                showMessageDialog(null, "Usuário removido");
+        int posicao = pesquisar();
+        int resposta;
+        if (posicao != -1) {
+            resposta = showConfirmDialog(null, "Quer remover este usuário?");
+            if (resposta == YES_OPTION) {
+                bilhetes[posicao] = bilhetes[index - 1];
                 index--;
             }
-        } else {
-            showMessageDialog(null, "Nenhum usuário para apagar");
         }
     }
 
